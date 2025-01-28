@@ -1,0 +1,82 @@
+server:
+  servlet:
+    context-path: /credentials/latest/
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:admin}
+    driver-class-name: ${DB_DRIVER:org.postgresql.Driver}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/credentials}
+    hikari:
+      connection-timeout: ${HIKARI_CONNECTION_TIMEOUT:300000}
+      idle-timeout: ${HIKARI_IDLE_TIMEOUT:60000}
+      max-lifetime: ${HIKARI_MAX_LIFETIME:1800000}
+      connection-test-query: ${HIKARI_CONNECTION_TEST_QUERY:SELECT 1}
+      maximum-pool-size: ${HIKARI_MAXIMUM_POOL_SIZE:10}
+      minimum-idle: ${HIKARI_MINIMUM_IDLE:5}
+      initialization-fail-timeout: ${HIKARI_INITIALIZATION_FAIL_TIMEOUT:2000}
+      isolate-internal-queries: ${HIKARI_ISOLATE_INTERNAL_QUERIES:true}
+      validation-timeout: ${HIKARI_VALIDATION_TIMEOUT:3000}
+      data-source-properties:
+        cachePrepStmts: ${HIKARI_DATASOUURCE_PROPERTIES_CACHEPREPSTMTS:true}
+        prepStmtCacheSize: ${HIKARI_DATASOUURCE_PROPERTIES_PREPSTMTCACHESIZE:512}
+        prepStmtCacheSqlLimit: ${HIKARI_DATASOUURCE_PROPERTIES_PREPSTMTCACHESQLLIMIT:2048}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show_sql: true
+    properties:
+      hibernate:
+        javax.persistence.validation.mode: none
+        dialect: ${DB_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+        jdbc:
+          batch_size: 50
+          fetch_size: 100
+          use_scrollable_resultset: true
+          lob.non-contextual-creation: true
+        format_sql: true
+      cache:
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+    database-platform: ${DB_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+    default-schema: public
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  output:
+    ansi:
+      enabled: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+version:
+  info:
+    filename: ${project.version}
+
+logging:
+  level:
+    root: info
+    org.hibernate: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.web: debug
+    org.springframework.security: debug
+    org.springframework.orm.jpa: debug
+  logback:
+    rolling policy:
+      max-file-size: 20MB
+      max-history: 10

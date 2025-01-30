@@ -20,4 +20,68 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="002-secret_key_unique_tipo_chave" author="mvassoler">
+        <addUniqueConstraint columnNames="tipo_chave" tableName="secret_key" constraintName="secret_key_unique_tipo_chave"/>
+        <rollback>
+            <dropUniqueConstraint uniqueColumns="tipo_chave" tableName="secret_key" constraintName="secret_key_unique_tipo_chave"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="003-create-credential-table" author="mvassoler">
+        <!-- Criação da tabela credential -->
+        <createTable tableName="credential">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="owner" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo_chave" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service" type="VARCHAR(1000)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="profile" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url_service" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="login" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <!-- Criação de índices -->
+        <createIndex indexName="idx_owner" tableName="credential">
+            <column name="owner"/>
+        </createIndex>
+        <createIndex indexName="idx_tipo_chave" tableName="credential">
+            <column name="tipo_chave"/>
+        </createIndex>
+        <createIndex indexName="idx_service" tableName="credential">
+            <column name="service"/>
+        </createIndex>
+        <createIndex indexName="idx_profile" tableName="credential">
+            <column name="profile"/>
+        </createIndex>
+        <!-- Criação de índice único -->
+        <addUniqueConstraint
+                constraintName="unique_owner_tipo_chave_service_profile_url_service"
+                tableName="credential"
+                columnNames="owner, tipo_chave, service, profile, url_service"/>
+
+        <!-- Rollback para remoção da tabela, índices e constraints -->
+        <rollback>
+            <dropTable tableName="credential"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

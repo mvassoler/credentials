@@ -4,6 +4,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
 public class EncryptionUtil {
@@ -55,5 +56,9 @@ public class EncryptionUtil {
 
         byte[] decryptedData = cipher.doFinal(encryptedContent);
         return new String(decryptedData);
+    }
+
+    public static SecretKey getSecretKey(String chaveBase64) {
+        return new SecretKeySpec(Base64.getDecoder().decode(chaveBase64), ENCRYPTION_ALGORITHM);
     }
 }

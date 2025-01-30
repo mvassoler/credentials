@@ -1,4 +1,4 @@
-package br.com.mvassoler.credentials.Repositories;
+package br.com.mvassoler.credentials.repositories;
 
 import br.com.mvassoler.credentials.core.enums.TipoChave;
 import br.com.mvassoler.credentials.entities.SecretKey;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface SecretKeyRepository extends CustomJpaRepository<SecretKey, Long> {
 
-    Optional<SecretKey> findSecretKeyBySecretKey(String secretKey);
+    Optional<SecretKey> findSecretKeyByTipoChave(TipoChave tipoChave);
 
     Page<SecretKey> findAllByTipoChave(TipoChave tipoChave, Pageable pageable);
 

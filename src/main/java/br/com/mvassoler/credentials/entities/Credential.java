@@ -1,6 +1,6 @@
 package br.com.mvassoler.credentials.entities;
 
-
+import br.com.mvassoler.credentials.core.enums.Profile;
 import br.com.mvassoler.credentials.core.enums.TipoChave;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,22 +25,39 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SecretKey implements Serializable {
+public class Credential implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -2367202867501800175L;
+    private static final long serialVersionUID = 8300966844542182347L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "secret_key", nullable = false, columnDefinition = "text")
-    private String secretKey;
+    @Column(name = "owner", nullable = false)
+    private String owner;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_chave", nullable = false)
     private TipoChave tipoChave;
+
+    @Column(name = "service")
+    private String service;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "profile", nullable = false)
+    private Profile profile;
+
+    @Column(name = "url_service", nullable = false)
+    private String urlService;
+
+    @Column(name = "login", nullable = false, columnDefinition = "text")
+    private String login;
+
+    @Column(name = "password", nullable = false, columnDefinition = "text")
+    private String password;
+
+    @Column(name = "token", columnDefinition = "text")
+    private String token;
 
 }

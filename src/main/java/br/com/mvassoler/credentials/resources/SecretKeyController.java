@@ -39,9 +39,9 @@ public class SecretKeyController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/byKey/{key}")
-    public ResponseEntity<Void> deleletKeyById(@PathVariable String key) {
-        secretKeyService.deleteBySecretKey(key);
+    @DeleteMapping("/byTipoChave/{key}")
+    public ResponseEntity<Void> deleletKeyByTipoChave(@PathVariable TipoChave key) {
+        secretKeyService.deleteByTipoChave(key);
         return ResponseEntity.noContent().build();
     }
 

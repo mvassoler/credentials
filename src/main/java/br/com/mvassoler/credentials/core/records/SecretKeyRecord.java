@@ -5,12 +5,14 @@ import br.com.mvassoler.credentials.entities.SecretKey;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Builder
 public record SecretKeyRecord(
 
         @JsonProperty(value = "id")
@@ -27,11 +29,11 @@ public record SecretKeyRecord(
 ) {
 
     public static SecretKeyRecord fromSecretKey(SecretKey secretKey) {
-        return new SecretKeyRecord(
-                secretKey.getId(),
-                secretKey.getSecretKey(),
-                secretKey.getTipoChave()
-        );
+        return SecretKeyRecord.builder()
+                .id(secretKey.getId())
+                .secretKey(secretKey.getSecretKey())
+                .tipoChave(secretKey.getTipoChave())
+                .build();
     }
 
     public static SecretKey fromSecretKey(SecretKeyRecord secretKey) {

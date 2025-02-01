@@ -1,14 +1,10 @@
-server:
-  servlet:
-    context-path: /credentials/latest/
-
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:admin}
     driver-class-name: ${DB_DRIVER:org.postgresql.Driver}
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/credentials}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/credentials?loggerLever=error}
     hikari:
       connection-timeout: ${HIKARI_CONNECTION_TIMEOUT:300000}
       idle-timeout: ${HIKARI_IDLE_TIMEOUT:60000}
@@ -70,12 +66,13 @@ version:
 logging:
   level:
     root: info
-    org.hibernate: debug
+    org.hibernate: info
     org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-    org.springframework.web: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: info
+    org.springframework.web: info
     org.springframework.security: debug
     org.springframework.orm.jpa: debug
+    liquibase: error
   logback:
     rolling policy:
       max-file-size: 20MB

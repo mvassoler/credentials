@@ -2,17 +2,17 @@ package br.com.mvassoler.credentials.core.handlers;
 
 public interface TitleExceptionsConstants {
 
-    String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado";
-    String ERRO_DE_SISTEMA = "Erro de Sistema";
-    String ACESSO_NEGADO = "Acesso negado";
-    String MENSAGEM_INCOMPREENSIVEL = "Mensagem incompreensível";
-    String PARAMETRO_INVALIDO = "Parâmetro inválido";
-    String DADOS_INVALIDOS = "Dados inválidos";
-    String ENTIDADE_NAO_ENCONTRADA = "Recurso não encontrado";
-    String ERRO_NEGOCIO = "Violação Regra de Negócio";
-    String SEM_AUTORIZACAO = "Não Autorizado";
-    String SERVER_ERROR = "Erro de servidor";
-    String REQUISICAO_INVALIDA = "Requisição inválida";
-    String RESOURCE_NOT_ACCEPT = "Recurso não possui representação aceita pelo consumidor";
+    String RECURSO_NAO_ENCONTRADO = "recurso.nao.encontrado";
+    String ERRO_DE_SISTEMA = "erro.sistema";
+    String ACESSO_NEGADO = "acesso.negado";
+    String MENSAGEM_INCOMPREENSIVEL = "mensagem.incpreensiavel";
+    String PARAMETRO_INVALIDO = "parametro.invalido";
+    String DADOS_INVALIDOS = "dados.invalidos";
+    String ENTIDADE_NAO_ENCONTRADA = "entidade.nao.encontrada";
+    String ERRO_NEGOCIO = "violacao.regra.negocio";
+    String SEM_AUTORIZACAO = "nao.autorizado";
+    String SERVER_ERROR = "erro.servidor";
+    String REQUISICAO_INVALIDA = "requisicao.invalida";
+    String RESOURCE_NOT_ACCEPT = "recurso.invalido";
 
 }

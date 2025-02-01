@@ -12,6 +12,7 @@ public class DatabaseLocaleResolver implements LocaleResolver {
     @NotNull
     @Override
     public Locale resolveLocale(@NotNull HttpServletRequest request) {
+
 /*        Usuario usuarioAtual;
         try {
             usuarioAtual = Util.getUsuarioAtual();
@@ -32,6 +33,10 @@ public class DatabaseLocaleResolver implements LocaleResolver {
         //Locale.setDefault(Util.getLocaleDefault());
         Locale.setDefault(Locale.getDefault());
 
+    }
+
+    public Locale resolveLocaleDefault() {
+        return Locale.getDefault();
     }
 
 

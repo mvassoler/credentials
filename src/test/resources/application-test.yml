@@ -1,0 +1,77 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: postgres
+    password: :admin
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/credentialstest
+    hikari:
+      connection-timeout: 300000
+      idle-timeout: 60000
+      max-lifetime: 3000
+      maximum-pool-size: 5
+      minimum-idle: 51
+      initialization-fail-timeout: 2000
+      validation-timeout: 3000
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 512
+        prepStmtCacheSqlLimit: 2048
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show_sql: true
+    properties:
+      hibernate:
+        javax.persistence.validation.mode: none
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+          fetch_size: 100
+          use_scrollable_resultset: true
+          lob.non-contextual-creation: true
+        format_sql: true
+      cache:
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+    default-schema: public
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  output:
+    ansi:
+      enabled: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+version:
+  info:
+    filename: ${project.version}
+
+logging:
+  level:
+    root: info
+    org.hibernate: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.web: debug
+    org.springframework.security: debug
+    org.springframework.orm.jpa: debug
+  logback:
+    rolling policy:
+      max-file-size: 20MB
+      max-history: 10

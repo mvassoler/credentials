@@ -7,7 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.text.MessageFormat;
 import java.util.Base64;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Component
 public class Utils {
@@ -24,12 +27,26 @@ public class Utils {
             // Criar e salvar no banco
             return SecretKey.builder()
                     .secretKey(encodedKey)
-                    .tipoChave(tipoChave) // Setar o tipo da chave
+                    .tipoChave(tipoChave)
                     .build();
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao gerar chave AES", e);
         }
+    }
+
+    public String retornaMensagem(String chave, Object... params) {
+        final Locale locale = new Locale("pt", "BR");
+
+        final ResourceBundle rb = ResourceBundle.getBundle("messages", locale);
+        if (rb.containsKey(chave)) {
+            if (params.length > 0) {
+                return MessageFormat.format(rb.getString(chave), params);
+            } else {
+                return rb.getString(chave);
+            }
+        }
+        return "";
     }
 
 }
